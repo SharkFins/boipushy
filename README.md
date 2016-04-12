@@ -19,28 +19,39 @@ end
 
 ### Binding keys to actions
 
+Key is the key pressed e.g. 's'
+
+Action is either 'pressed', 'released', 'held' or 'moved'. 'moved' only applies to some keys (usually mouse 1-5).
+
+Gamestate is an arbitary state e.g. 'level' or 'menu'. 'all' can be used if you want to be called no matter the state.
+
+Id is 0 or nil for keyboard/mouse and the Joystick ID for joysticks.
+
+f is the function you want to be called e.g. print("testing") or function() local t = 3 print(t) end
+If calling a function on an object you will have to use an anonymous function to pass the parameters correctly
+e.g. function(...) fireBullet(...) end
+You will have to look at the callback functions for each to see what parameters are passed.
+
 ```lua
-input:bind('1', 'print')
-input:bind('s', function() print(2) end)
-input:bind('mouse1', 'left_click')
+input:bind(key, action, gamestate, id, f)
+input:bind('1', 'released', 'level', nil, function(...) fireBullet(...) end)
+input:bind('s', 'pressed', 'menu', 0, function() print(2) end)
+input:bind('mouse1', 'moved', 'all', 0, mouseMoved())
 ```
 
 ### Checking if an action is pressed/released/down
 
 ```lua
-function love.update(dt)
-  if input:pressed('print') then print(1) end
-  if input:released('print') then print(2) end
-  if input:down('left_click') then print('left click down') end
-end
+input:bind('1', 'held', 'level', nil, function() print("1 held") end)
 ```
 
 ### Unbinding a key
 
 ```lua
-input:unbind('1')
-input:unbind('s')
-input:unbind('mouse1')
+input:unbind(key, action, gamestate, id)
+input:unbind('1', 'pressed', 'level')
+input:unbind('s', 'released', 'menu')
+input:unbind('mouse1', 'moved', 'level')
 ```
 
 ### Key/mouse/gamepad Constants
@@ -56,6 +67,8 @@ Keyboard constants are unchanged from [here](https://www.love2d.org/wiki/KeyCons
 'mouse5'
 'wheelup'
 'wheeldown'
+'wheelleft'
+'wheelright'
 
 -- Gamepad
 'fdown' -- fdown/up/left/right = face buttons: a, b...
@@ -69,16 +82,36 @@ Keyboard constants are unchanged from [here](https://www.love2d.org/wiki/KeyCons
 'rightstick' -- right stick pressed or not (boolean)
 'l1'
 'r1'
-'l2' -- returns a value from 0 to 1
-'r2' -- returns a value from 0 to 1
+'l2'
+'r2'
 'dpup' -- dpad buttons
 'dpdown'
 'dpleft'
 'dpright'
-'leftx' -- returns a value from -1 to 1, the left stick's horizontal position
+'leftx' -- the left stick's horizontal position
 'lefty' -- same for vertical
 'rightx' -- same for right stick
 'righty'
+```
+
+### Modifiers
+
+If a modifer has been pressed when a function is bound to a key then then it will bind to key+modifier.
+
+```lua
+--Modifiers
+'numlock'
+'capslock'
+'scrolllock'
+'rshift'
+'lshift'
+'rctrl'
+'lctrl'
+'ralt'
+'lalt'
+'rgui'
+'lgui'
+'mode'
 ```
 
 ### LICENSE
