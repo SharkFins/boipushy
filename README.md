@@ -28,11 +28,13 @@ Gamestate is an arbitary state e.g. 'level' or 'menu'. 'all' can be used if you 
 Id is 0 or nil for keyboard/mouse and the Joystick ID for joysticks.
 
 f is the function you want to be called
+
 ```lua
 function() local t = 3 print(t) end
 ```
 
 If you are calling a function on an object you will have to use an anonymous function to pass the parameters correctly
+
 ```lua
 function(...) fireBullet(...) end
 ```
