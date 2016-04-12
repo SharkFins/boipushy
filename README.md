@@ -27,10 +27,15 @@ Gamestate is an arbitary state e.g. 'level' or 'menu'. 'all' can be used if you 
 
 Id is 0 or nil for keyboard/mouse and the Joystick ID for joysticks.
 
-f is the function you want to be called e.g. print("testing") or function() local t = 3 print(t) end
+f is the function you want to be called
+```lua
+function() local t = 3 print(t) end
+```
 
 If you are calling a function on an object you will have to use an anonymous function to pass the parameters correctly
-e.g. function(...) fireBullet(...) end
+```lua
+function(...) fireBullet(...) end
+```
 
 You will have to look at the callback functions for each to see what parameters are passed.
 
@@ -51,9 +56,9 @@ input:bind('1', 'held', 'level', nil, function() print("1 held") end)
 
 ```lua
 input:unbind(key, action, gamestate, id)
-input:unbind('1', 'pressed', 'level')
-input:unbind('s', 'released', 'menu')
-input:unbind('mouse1', 'moved', 'level')
+input:unbind('1', 'pressed', 'level', 0)
+input:unbind('s', 'released', 'menu', 0)
+input:unbind('mouse1', 'moved', 'level', 0)
 ```
 
 ### Key/mouse/gamepad Constants
@@ -98,7 +103,7 @@ Keyboard constants are unchanged from [here](https://www.love2d.org/wiki/KeyCons
 
 ### Modifiers
 
-If a modifer has been pressed when a function is bound to a key then then it will bind to key+modifier.
+If a modifer has been pressed when a function is bound to a key then then it will bind to key + modifier.
 
 ```lua
 --Modifiers
