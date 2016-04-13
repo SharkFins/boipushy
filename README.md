@@ -1,6 +1,6 @@
-# boipushy
+# love2dInput
 
-An input module for LÖVE. Simplifies input handling by abstracting them away to actions,
+A fork of boipushy by adonaac. An input module for LÖVE. Simplifies input handling by abstracting them away to actions,
 enabling pressed/released checks outside of LÖVE's callbacks and taking care of gamepad input as well.
 
 ## Usage
